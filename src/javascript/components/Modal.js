@@ -10,6 +10,8 @@ class Modal extends View {
     }
     showModal() {
         this.modalBackdrop.classList.remove('hidden');
+        this.modalBackdrop.innerHTML = '';
+        document.getElementsByTagName('body')[0].style.position = 'fixed';
         this.modalBackdrop.appendChild(this.modal);
         return this.modalBackdrop;
     }
@@ -34,6 +36,7 @@ class Modal extends View {
         return this.createElement({tagName: 'div', className: 'modal__action-block'});
     }
     closeModal() {
+        document.getElementsByTagName('body')[0].style.position = '';
         this.modalBackdrop.classList.add('hidden');
         this.modalBackdrop.innerHTML = '';
     }
