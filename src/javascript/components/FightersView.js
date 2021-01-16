@@ -23,17 +23,17 @@ class FightersView extends View {
         this.element.append(...fighterElements);
     }
 
-    handleFighterClick(event, fighter) {
-        const fighterDetails = this.getFighterDetails(fighter._id);
+    async handleFighterClick(event, fighter) {
+        const fighterDetails = await this.getFighterDetails(fighter._id);
         // console.log('clicked', this.fightersDetailsMap.entries());
         // get from map or load info and add to fightersMap
         // show modal with fighter info
         // allow to edit health and power in this modal
         const modal = new DetailsModal(fighterDetails);
     }
-    getFighterDetails(id) {
+    async getFighterDetails(id) {
         if(!this.isInDetailsMap(id)) {
-           return this.loadFighterDetails(id);
+           return await this.loadFighterDetails(id);
         }
         return this.fightersDetailsMap.get(id);
     }
