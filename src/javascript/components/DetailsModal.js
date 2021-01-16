@@ -1,4 +1,6 @@
 import Modal from './Modal';
+import DetailsController from './DetailsController';
+import {LABELS} from '../helpers/constants';
 
 class DetailsModal extends Modal{
     constructor(fighter) {
@@ -14,7 +16,8 @@ class DetailsModal extends Modal{
     createBody(fighter) {
         const bodyContainer = this.createBodyContainer();
         const image = this.createImage(fighter);
-        bodyContainer.append(image);
+        const details = this.createDetailsBlock(fighter);
+        bodyContainer.append(image, details);
         return bodyContainer;
     }
     createActions(fighter) {
@@ -27,6 +30,19 @@ class DetailsModal extends Modal{
     }
     createImage(fighter) {
         return this.createElement({tagName: 'img', className: 'details-modal__img', attributes: {alt: fighter.name, src: fighter.source}});
+    }
+    createDetailsBlock(fighter) {
+        const container = this.createElement({tagName: 'div', className: 'details-modal__details-block'});
+        const controllers = Object.values(LABELS).map(label => {
+            const controller =  new DetailsController({
+                label,
+                id: fighter._id,
+                initValue: fighter[label],
+            });
+            return controller.element;
+        });
+        container.append(...controllers);
+        return container;
     }
 }
 
