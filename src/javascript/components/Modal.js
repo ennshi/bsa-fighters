@@ -4,7 +4,6 @@ class Modal extends View {
     constructor() {
         super();
         this.modalBackdrop = document.getElementById('modal');
-        this.modal = this.createModal();
         this.closeOnClick = this.closeModal.bind(this);
         this.showModal();
     }
@@ -12,12 +11,13 @@ class Modal extends View {
         this.modalBackdrop.classList.remove('hidden');
         this.modalBackdrop.innerHTML = '';
         document.getElementsByTagName('body')[0].style.position = 'fixed';
-        this.modalBackdrop.appendChild(this.modal);
+        this.element = this.createModal();
+        this.modalBackdrop.appendChild(this.element);
         return this.modalBackdrop;
     }
     createModal() {
-        this.modal = this.createElement({tagName: 'div', className: 'modal__container'});
-        return this.modal;
+        this.element = this.createElement({tagName: 'div', className: 'modal__container'});
+        return this.element;
     }
     createHeader(headerText = '') {
         const modalHeader = this.createElement({tagName: 'header', className: 'modal__header'});
@@ -41,7 +41,7 @@ class Modal extends View {
         this.modalBackdrop.innerHTML = '';
     }
     addChildrenToModal(nodeList) {
-        this.modal.append(...nodeList);
+        this.element.append(...nodeList);
     }
 }
 
