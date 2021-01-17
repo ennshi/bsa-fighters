@@ -1,5 +1,5 @@
 import View from './View';
-import FighterView from './FighterView';
+import SelectedFighterView from './SelectedFighterView';
 
 class FightersSelectorView extends View {
     constructor() {
@@ -27,8 +27,7 @@ class FightersSelectorView extends View {
     displaySelectedFighters() {
         if(this.selector.size) {
             const fighters = Array.from(this.selector.entries()).map(fighter => {
-                const fighterElement = new FighterView(fighter[1], null);
-                fighterElement.element.classList.add(fighter[0]);
+                const fighterElement = new SelectedFighterView(fighter[1], fighter[0]);
                 return fighterElement.element;
             });
             this.element.innerHTML = '';
