@@ -1,5 +1,7 @@
 import FightersView from './FightersView';
-import { fighterService } from '../services/fighterService';
+import FightersSelectorView from './FightersSelectorView';
+import {Fighters as fighters} from '../../resources/fighters';
+import FightersSelectorController from './FightersSelectorController';
 
 class App {
     constructor() {
@@ -13,10 +15,14 @@ class App {
         try {
             App.loadingElement.style.visibility = 'visible';
 
-            const fighters = await fighterService.getFighters();
-            const fightersView = new FightersView(fighters);
+            const fightersSelectorView = new FightersSelectorView();
+            const fightersSelectorController = new FightersSelectorController(fightersSelectorView.updateFightersSelectorView);
+            const fightersSelectorElement = fightersSelectorView.element;
+            //const fighters = await fighterService.getFighters();
+            const fightersView = new FightersView(fighters, fightersSelectorController.selectFighter);
             const fightersElement = fightersView.element;
 
+            App.rootElement.appendChild(fightersSelectorElement);
             App.rootElement.appendChild(fightersElement);
         } catch (error) {
             console.warn(error);
