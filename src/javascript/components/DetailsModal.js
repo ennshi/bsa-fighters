@@ -1,6 +1,7 @@
 import Modal from './Modal';
 import DetailsController from './DetailsController';
 import {LABELS} from '../helpers/constants';
+import {fightersSelectorView} from './FightersSelectorView';
 
 class DetailsModal extends Modal{
     constructor(fighter, updateFighterDetails) {
@@ -27,7 +28,7 @@ class DetailsModal extends Modal{
         const actionBlock = this.createActionBlock();
         const btnSelect = this.createElement({tagName: 'button', className: 'btn-action'});
         btnSelect.innerText = 'Select';
-        btnSelect.addEventListener('click', () => (console.log(fighter.name)));
+        btnSelect.addEventListener('click', () => (fightersSelectorView.setFighterCb(fighter)));
         actionBlock.append(btnSelect);
         return actionBlock;
     }
