@@ -2,11 +2,11 @@ import View from './View';
 import {ICONS, LIMIT_VALUES} from '../helpers/constants';
 
 class DetailsController extends View {
-    constructor({label, id, initValue}) {
+    constructor({label, id, initValue, updateFighterDetails}) {
         super();
         this.value = initValue;
-        this.decreaseOnClick = this.decreaseValue.bind(this, label, id);
-        this.increaseOnClick = this.increaseValue.bind(this, label, id);
+        this.decreaseOnClick = this.decreaseValue.bind(this, label, id, updateFighterDetails);
+        this.increaseOnClick = this.increaseValue.bind(this, label, id, updateFighterDetails);
         this.createController({label, id});
     }
     createController({label, id}) {
@@ -35,8 +35,9 @@ class DetailsController extends View {
         decrBtn.addEventListener('click', this.decreaseOnClick);
         return decrBtn;
     }
-    decreaseValue(label, id) {
+    decreaseValue(label, id, updateFighterDetails) {
         this.value = (this.value > LIMIT_VALUES[label].min) ? (this.value - 1) : LIMIT_VALUES[label].max;
+        updateFighterDetails(id, label, this.value);
         this.updateDisplayedValue(label, id);
     }
     createIncreasingBtn() {
@@ -45,8 +46,9 @@ class DetailsController extends View {
         incrBtn.addEventListener('click', this.increaseOnClick);
         return incrBtn;
     }
-    increaseValue(label, id) {
+    increaseValue(label, id, updateFighterDetails) {
         this.value = this.value < LIMIT_VALUES[label].max ? (this.value + 1) : LIMIT_VALUES[label].min;
+        updateFighterDetails(id, label, this.value);
         this.updateDisplayedValue(label, id);
     }
     createDisplayedValue(label, id) {

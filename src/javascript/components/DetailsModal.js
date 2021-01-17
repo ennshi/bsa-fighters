@@ -3,8 +3,11 @@ import DetailsController from './DetailsController';
 import {LABELS} from '../helpers/constants';
 
 class DetailsModal extends Modal{
-    constructor(fighter) {
+    constructor(fighter, updateFighterDetails) {
         super();
+        this.updateFighterDetails = (id, label, value) => {
+            updateFighterDetails(id, label, value);
+        };
         this.setupDetailsModal(fighter);
     }
     setupDetailsModal(fighter) {
@@ -38,6 +41,7 @@ class DetailsModal extends Modal{
                 label,
                 id: fighter._id,
                 initValue: fighter[label],
+                updateFighterDetails: this.updateFighterDetails
             });
             return controller.element;
         });
