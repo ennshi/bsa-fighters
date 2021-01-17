@@ -2,14 +2,16 @@ import View from './View';
 import FighterView from './FighterView';
 import DetailsModal from './DetailsModal';
 import {fighterService} from '../services/fighterService';
+import {FighterDetails} from '../../resources/fighterDetails';
 
 class FightersView extends View {
-    constructor(fighters) {
+    constructor(fighters, selectFighter) {
         super();
 
         this.handleClick = this.handleFighterClick.bind(this);
         this.createFighters(fighters);
         this.updateFighterDetails = this.updateFightersDetailsMap.bind(this);
+        this.selectFighterCb = (fighter) => (selectFighter(fighter));
     }
 
     fightersDetailsMap = new Map();
@@ -30,7 +32,7 @@ class FightersView extends View {
         // get from map or load info and add to fightersMap
         // show modal with fighter info
         // allow to edit health and power in this modal
-        const modal = new DetailsModal(fighterDetails, this.updateFighterDetails);
+        const modal = new DetailsModal(fighterDetails, this.updateFighterDetails, this.selectFighterCb);
     }
     async getFighterDetails(id) {
         if(!this.isInDetailsMap(id)) {
@@ -40,6 +42,7 @@ class FightersView extends View {
     }
     async loadFighterDetails(id) {
         const fighterDetails = await fighterService.getFighterDetails(id);
+        //const fighterDetails = FighterDetails[id];
         this.fightersDetailsMap.set(id, fighterDetails);
         return fighterDetails;
     }
