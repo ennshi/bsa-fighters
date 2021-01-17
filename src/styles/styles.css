@@ -152,9 +152,48 @@ button:hover {
   height: 20px;
 }
 
-.arena--initial {
+.fighters-selector__container {
   width: 100%;
-  height: 50vw;
-  background-color: red;
+  min-height: 200px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #bf2e2b;
 }
 
+.selected-fighter__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.selected-fighter__image-left,
+.selected-fighter__image-right {
+  height: 150px;
+  object-fit: scale-down;
+}
+
+.selected-fighter__image-right {
+  transform: scale(-1, 1);
+}
+
+.selected-fighter__details-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.selected-fighter__icon {
+  height: 20px;
+}
+
+.selected-fighter__name {
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+}
